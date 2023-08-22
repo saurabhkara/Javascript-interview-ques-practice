@@ -405,3 +405,205 @@ const factory = new Factory("");
 
 //========================================================
 //Async and await and generator functions
+
+//========================================================
+//Program to reverse each word in the given string
+
+let strq = "Ram Ram Ram Shyam";
+
+function reverseString(str, separator) {
+  return str.split(separator).reverse().join(separator);
+}
+// let strReversed = reverseString(strq, "");
+// let finalStr = reverseString(strReversed, " ");
+// console.log(finalStr);
+
+//==============================================================
+//Given two string return true if they are anagram of each other
+
+let anagramStr1 = "Ram";
+let anagramStr2 = "maR";
+
+function convert(str) {
+  return str.toLowerCase().split("").sort().join("");
+}
+// const as1 = convert(anagramStr2);
+// const as2 = convert(anagramStr2);
+
+// if (v1 === v2) {
+//   console.log("Both are anagram");
+// } else {
+//   console.log("Not anagram");
+// }
+
+//==================================================================
+//Fibonacci series
+let fibSeries = [0, 1];
+function fibonacci(term) {
+  for (let i = 0; i < term; i++) {
+    fibSeries[i + 2] = fibSeries[i] + fibSeries[i + 1];
+  }
+  console.log(fibSeries);
+}
+
+// fibonacci(5);
+
+//=======================================================
+//ArmStrong Number
+
+function armStrong(num) {
+  let sum = 0;
+  let num1 = num;
+  while (num1 > 0) {
+    let lastDigit = num1 % 10;
+    num1 = parseInt(num1 / 10);
+    sum = sum + lastDigit ** 3;
+  }
+  return sum === num;
+}
+// console.log(armStrong(153));
+
+//=======================================================
+//Factorial of number
+
+function factorial(num) {
+  let result = 1;
+  if (num === 0 || num === 1) {
+    return 1;
+  }
+  for (let i = 1; i <= num; i++) {
+    result = result * i;
+  }
+  console.log(result);
+}
+// factorial(8);
+
+//=========================================================
+//Palindrome
+
+function palimdrome(str1, str2) {
+  str2 = str2.split("").reverse().join("");
+  return str1 === str2;
+}
+
+// console.log(palimdrome("Ram", "maR"));
+
+//========================================================
+//Remove duplicated from Array
+
+let arrDup = [1, 2, 2, 3, 3, 4, 5];
+function removeDuplicateElem(arr) {
+  let set = new Set(arr);
+  return [...set];
+}
+
+// console.log(removeDuplicateElem(arrDup));
+
+function removeDuplicateUsingObj(arr) {
+  let result = arr.reduce((acc, item, index) => {
+    acc[item] ? (acc[item] = acc[item] + 1) : (acc[item] = 1);
+    return acc;
+  }, {});
+  console.log(result);
+  return Object.keys(result);
+}
+// console.log(removeDuplicateUsingObj(arrDup));
+
+//=========================================================
+// 2:1 => 2 is elememt of arrR2 and 1 is number of times present in arrR1;
+let arrR1 = [3, 4, 5, 6, 5, 4, 5];
+let arrR2 = [2, 3, 4, 5, 6];
+
+let result = arrR2.map((item, index) => {
+  let elemAndCount = arrR1.reduce((acc, it) => {
+    if (item === it) {
+      acc = acc + 1;
+    }
+    return acc;
+  }, 0);
+  return `${item} : ${elemAndCount}`;
+});
+// console.log(result);
+
+//============================================================
+//Convert Nested object into flat object
+
+let nestedObj = {
+  name: "Ram",
+  address: {
+    present: {
+      city: "Ara",
+      pincode: 802301,
+    },
+    office: {
+      city: "Vadodra",
+      pincode: 300018,
+    },
+  },
+};
+
+// let flatObj = {};
+function flatteningObj(obj, name, des) {
+  for (let key in obj) {
+    if (typeof obj[key] === "object") {
+      flatteningObj(obj[key], name + "_" + key, des);
+    } else {
+      des[name + "_" + key] = obj[key];
+    }
+  }
+  return des;
+}
+
+// console.log(flatteningObj(nestedObj, "obj", {}));
+// console.log(flatObj);
+
+//===================================================
+//Write function for add(a)(b)(c)() -Infinite currying
+
+function add(a) {
+  return (b) => {
+    return b ? add(a + b) : a;
+  };
+}
+// console.log(add(5)(3)());
+
+//=======================================================
+//convert multidimension array into single dimension array
+
+let multiDimArray = [1, [2, 3], [4, 5, 6], [7, [8, 9]]];
+
+function flatArray(arr, desiredArr) {
+  arr.forEach((item) => {
+    if (Array.isArray(item)) {
+      flatArray(item, desiredArr);
+    } else {
+      desiredArr.push(item);
+    }
+  });
+  return desiredArr;
+}
+// console.log(flatArray(multiDimArray, []));
+
+//=======================================================
+//Sort only positive number in array
+let arr12 = [-1, 40, 20, -4, 10, 2];
+
+function sortPositiveArray(arr) {
+  let tempArr = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] >= 0) {
+      tempArr.push(arr[i]);
+    }
+  }
+  tempArr = tempArr.sort((a, b) => a - b);
+  let index = 0;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] >= 0) {
+      arr[i] = tempArr[index++];
+    }
+  }
+  return arr;
+}
+// console.log(sortPositiveArray(arr12));
+
+//===============================================
