@@ -606,4 +606,172 @@ function sortPositiveArray(arr) {
 }
 // console.log(sortPositiveArray(arr12));
 
-//===============================================
+//==============================================================
+//Remove duplicate keys and merge array values of an object in javascript
+
+let originalArr = [
+  { id: 1, element: [1, 2] },
+  { id: 2, element: [3, 4] },
+  { id: 2, element: ["a", "b"] },
+  { id: 3, element: ["a", 2, "b"] },
+];
+
+function removeAndMerge(arr) {
+  let result = arr.reduce((acc, item) => {
+    if (acc[item.id]) {
+      acc[item.id].element = [...acc[item.id].element, ...item.element];
+    } else {
+      acc[item.id] = item;
+    }
+    return acc;
+  }, {});
+  return Object.values(result);
+}
+// console.log(removeAndMerge(originalArr));
+
+//========================================================================
+//Shift zero at last in the array
+
+let arrwithZero = [1, 0, 2, 3, 0, 7, 9, 0, 10];
+
+function shiftZero(arr) {
+  arr.map((item, index) => {
+    if (item === 0) {
+      arr.splice(index, 1);
+      arr.push(0);
+    }
+  });
+  return arr;
+}
+// console.log(shiftZero(arrwithZero));
+
+function shiftZeroUsingForLoop(arr) {
+  let count = 0;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] !== 0) {
+      arr[count] = arr[i];
+      count++;
+    }
+  }
+  for (let i = count; i < arr.length; i++) {
+    arr[count] = 0;
+    count++;
+  }
+  return arrwithZero;
+}
+// console.log(shiftZeroUsingForLoop(arrwithZero));
+
+//=======================================================================
+//Fetch Student object whose average marks is greater than other students
+
+let students = [
+  {
+    name: "Ram",
+    marks: [70, 60, 80, 65, 90],
+  },
+  {
+    name: "Shyam",
+    marks: [70, 60, 60, 45, 90],
+  },
+  {
+    name: "Mohan",
+    marks: [74, 67, 72, 69, 89],
+  },
+];
+
+function highestAverage(students) {
+  let result = students.reduce(
+    (acc, item) => {
+      let totalMarks = item.marks.reduce((total, item) => {
+        return total + item;
+      }, 0);
+
+      let average = totalMarks / item.marks.length;
+      if (acc.count < average) {
+        acc.count = average;
+        acc.row = item;
+      }
+      return acc;
+    },
+    {
+      row: {},
+      count: 0,
+    }
+  );
+  return result;
+}
+// console.log(highestAverage(students));
+
+//============================================================
+//Print 1 to 5 numbers in every one second
+
+function printOne2Five() {
+  let count = 1;
+  let internval = setInterval(function () {
+    console.log(count++);
+  }, 1000);
+  setTimeout(() => {
+    clearInterval(internval);
+  }, 5000);
+}
+
+// printOne2Five();
+
+//===================================================================
+//Program to return odd repeating number in this ['a:3','d:1'] format
+
+let arr15 = ["a", "a", "b", "c", "a", "c", "d", "e", "f"];
+
+function oddRepeatingLetter(arr) {
+  let countObj = arr.reduce((acc, item) => {
+    if (acc[item]) {
+      acc[item] = acc[item] + 1;
+    } else {
+      acc[item] = 1;
+    }
+    return acc;
+  }, {});
+
+  let final = [];
+  for (let key in countObj) {
+    if (countObj[key] % 2 !== 0) {
+      final.push(`${key} :${countObj[key]}`);
+    }
+  }
+  console.log(final);
+}
+// oddRepeatingLetter(arr15);
+
+//=============================================================
+//Same key value put together in Array
+
+let input = [
+  {
+    type: "abc",
+    value: 123,
+  },
+  {
+    type: "xyz",
+    value: 456,
+  },
+  {
+    type: "abc",
+    value: 789,
+  },
+];
+
+function sameTypeGrouping(arr) {
+  let result = arr.reduce((acc, item) => {
+    if (acc[item.type]) {
+      acc[item.type].value = [...acc[item.type].value, item.value];
+    } else {
+      acc[item.type] = { ...item, value: [item.value] };
+    }
+    return acc;
+  }, {});
+  return result;
+}
+// console.log(Object.values(sameTypeGrouping(input)));
+
+//=============================================================================
+//Program to remove duplicates elements from an Array without inbuild functions
