@@ -775,3 +775,154 @@ function sameTypeGrouping(arr) {
 
 //=============================================================================
 //Program to remove duplicates elements from an Array without inbuild functions
+
+//============================================================================
+//Polyfills for map
+
+Array.prototype.myMap = function (cb) {
+  if (!Array.isArray(this)) {
+    throw new Error("Instance is not array");
+  }
+  let returnArr = [];
+  for (let i = 0; i < this.length; i++) {
+    let item = cb(this[i], i, this);
+    returnArr.push(item);
+  }
+  return returnArr;
+};
+
+// const polyfillResult = arr2.myMap((item, index) => {
+//   console.log(item, index);
+//   return item + index;
+// });
+
+// console.log(polyfillResult);
+
+//============================================================
+//Polyfills for filter
+
+Array.prototype.myFilter = function (cb) {
+  if (!Array.isArray(this)) {
+    throw new Error("Instance is not Array");
+  }
+  let temp = [];
+  for (let i = 0; i < this.length; i++) {
+    let flag = cb(this[i], i, this);
+    if (flag) {
+      temp.push(this[i]);
+    }
+  }
+  return temp;
+};
+
+// let myFilterResult = arr12.myFilter((item, index) => item > 5);
+// console.log(myFilterResult);
+
+//=================================================================
+//Polyfills for Reduce method
+
+Array.prototype.myReduce = function (cb, acc) {
+  if (!Array.isArray(this)) {
+    throw Error("Instance is not Array");
+  }
+  let result = acc;
+
+  for (let i = 0; i < this.length; i++) {
+    let returnValue = cb(result, this[i], i, this);
+    result = returnValue ? returnValue : this[i];
+  }
+  return result;
+};
+
+// let myReduceResult = arr12.myReduce((acc, item) => {
+//   console.log(acc, item);
+//   return acc + item;
+// }, 0);
+// console.log(myReduceResult);
+
+//================================================================
+//Polyfill for Call method
+
+Function.prototype.myCall = function (context, ...args) {
+  if (typeof this !== "function") {
+    throw Error("Instance is not callable");
+  }
+  let cntx = context ? context : {};
+  cntx.fn = this;
+  cntx.fn(...args);
+};
+
+// const obj15 = {
+//   name: "Saurabh",
+// };
+// function callTheFunction(address) {
+//   console.log(this.name, address);
+// }
+// callTheFunction.myCall(obj15, "Ara");
+
+//==================================================
+//Polyfill for Apply method
+
+Function.prototype.myApply = function (context = {}, args) {
+  if (typeof this !== "function") {
+    throw Error(this, "is not callable");
+  }
+  context.fn = this;
+  context.fn(...args);
+};
+
+const obj20 = {
+  name: "Saurabh Kumar",
+};
+// function myApplyFunction(address) {
+//   console.log(this.name, address);
+// }
+// myApplyFunction.myApply(obj20, ["Bhojpur"]);
+
+//=============================================================
+//Polyfills for Bind method
+
+Function.prototype.myBind = function (context = {}, ...args) {
+  if (typeof this !== "function") {
+    throw new Error(this, "is not callable");
+  }
+  context.fn = this;
+  return function (args) {
+    return context.fn(...args);
+  };
+};
+
+// const obj22 = {
+//   name: "Saurabh",
+// };
+// function myBindFunction(address) {
+//   console.log(this.name, address);
+// }
+
+// myBindFunction.bind(obj22)("Ara");
+
+//=================================================================
+//Polyfill for once method
+
+function Once(cb) {
+  let called = true;
+  return function () {
+    if (called) {
+      called = false;
+      return cb();
+    }
+    called = "funcion already called";
+    console.log(called);
+    return called;
+  };
+}
+
+function callbackOnce() {
+  console.log("Function called");
+}
+// const returnFun = Once(callbackOnce);
+// returnFun();
+// returnFun();
+// returnFun();
+
+//=======================================================================
