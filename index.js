@@ -403,6 +403,92 @@ const factory = new Factory("");
 // console.log(factory.createEmployee("parttime"));
 // console.log(factory.createEmployee("freelancer"));
 
+//============================================================
+//Prototype Design Pattern
+
+//Prototype of car
+function Car(wheel, engine) {
+  this.wheel = wheel;
+  this.engine = engine;
+  this.start = function () {
+    console.log("Your car has been started");
+  };
+  this.break = function () {
+    console.log("Your car has been stopped");
+  };
+}
+
+// const car = new Car(4, 2);
+// car.start();
+// car.break();
+
+function CarPrototype(proto) {
+  //that will create same type of car
+  this.clone = function () {
+    this.proto = proto;
+    const car = new Car(4, 2);
+    car.wheel = proto.wheel;
+    car.engine = proto.engine;
+    return car;
+  };
+}
+
+function Run() {
+  const proto = new Car(4, 2);
+  const prototype = new CarPrototype(proto);
+  const car1 = prototype.clone();
+  const car2 = prototype.clone();
+  car1.start();
+}
+// Run();
+//============================================================
+//Observer Design Pattern
+
+class Subscriber {
+  name = "";
+  id;
+  constructor(name, id) {
+    this.name = name;
+    this.id = id;
+  }
+  message(mgs) {
+    console.log(`Hey, ${this.name} ${mgs}`);
+  }
+}
+
+const sub1 = new Subscriber("Ram", 1);
+const sub2 = new Subscriber("Shyam", 2);
+const sub3 = new Subscriber("Rohit", 3);
+// sub1.message("Subscribe Kalro na!");
+// sub2.message("Subscribe Kalro na!");
+// sub3.message("Subscribe Kalro na!");
+
+class YoutubeChannel {
+  list = [];
+
+  subscribe(subscriber) {
+    this.list.push(subscriber);
+  }
+  unsubscribe(id) {
+    this.list = this.list.filter((item) => item.id !== id);
+  }
+  publish(msg) {
+    console.log(this.list);
+    for (let subs of this.list) {
+      subs.message(msg);
+    }
+  }
+}
+
+const yt = new YoutubeChannel();
+// yt.publish();
+// yt.subscribe(sub1);
+// yt.subscribe(sub2);
+// yt.subscribe(sub3);
+// yt.publish("Subscribe kar na bhai !!");
+// yt.unsubscribe(2);
+// yt.publish("karooo subscribe");
+
 //========================================================
 //Async and await and generator functions
 
