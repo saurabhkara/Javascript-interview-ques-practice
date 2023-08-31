@@ -489,6 +489,37 @@ const yt = new YoutubeChannel();
 // yt.unsubscribe(2);
 // yt.publish("karooo subscribe");
 
+//============================================================
+//Strategy Design Pattern
+
+function JobPerson(strategy) {
+  this.strategy = strategy;
+}
+
+JobPerson.prototype.mode = function () {
+  return this.strategy();
+};
+
+function trainStrategy() {
+  console.log("Person going to office using Train");
+}
+
+function busStrategy() {
+  console.log("Person going to office using Bus");
+}
+
+function cabStrategy() {
+  console.log("Person going to office using Cab");
+}
+
+const OfficeViaTrain = new JobPerson(trainStrategy);
+const OfficeViaBus = new JobPerson(busStrategy);
+const OfficeViaCab = new JobPerson(cabStrategy);
+console.log(OfficeViaBus);
+OfficeViaTrain.mode();
+OfficeViaBus.mode();
+OfficeViaCab.mode();
+
 //========================================================
 //Async and await and generator functions
 
