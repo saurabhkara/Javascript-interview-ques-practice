@@ -515,10 +515,30 @@ function cabStrategy() {
 const OfficeViaTrain = new JobPerson(trainStrategy);
 const OfficeViaBus = new JobPerson(busStrategy);
 const OfficeViaCab = new JobPerson(cabStrategy);
-console.log(OfficeViaBus);
-OfficeViaTrain.mode();
-OfficeViaBus.mode();
-OfficeViaCab.mode();
+// console.log(OfficeViaBus);
+// OfficeViaTrain.mode();
+// OfficeViaBus.mode();
+// OfficeViaCab.mode();
+
+//=============================================================
+//Facade Design Pattern
+
+const btn = document.getElementById("btn");
+
+function eventHandler() {
+  console.log("Click ho gaya bro");
+}
+
+function RegisterEventHandler(thisObject, event, eventHandler) {
+  if (window.addEventListener) {
+    thisObject.addEventListener(event, eventHandler);
+  } else if (window.attachEvent) {
+    thisObject.attachEvent(event, eventHandler);
+  } else {
+    thisObject["on" + event] = eventHandler;
+  }
+}
+// RegisterEventHandler(btn, "click", eventHandler);
 
 //========================================================
 //Async and await and generator functions
