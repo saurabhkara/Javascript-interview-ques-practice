@@ -540,6 +540,39 @@ function RegisterEventHandler(thisObject, event, eventHandler) {
 }
 // RegisterEventHandler(btn, "click", eventHandler);
 
+//===============================================================
+//Memoization Design Pattern
+
+function Calculate(num) {
+  let result = 1;
+  for (let i = 1; i <= num; i++) {
+    for (let j = 1; j <= num; j++) {
+      result = result + j;
+    }
+  }
+  return result;
+}
+// const startTime = performance.now();
+// const answer = Calculate(4000);
+// console.log(answer);
+// const endTime = performance.now();
+// console.log(`${endTime - startTime} miliSecond`);
+
+function memoize() {
+  let cache = {};
+  return function (func, num) {
+    if (cache[num] === undefined) {
+      console.log("Storing in Cache");
+      cache[num] = func(num);
+    }
+    return cache[num];
+  };
+}
+// const memoizedFunction = memoize();
+// console.log(memoizedFunction(Calculate, 40));
+// console.log(memoizedFunction(Calculate, 40));
+// console.log(memoizedFunction(Calculate, 40));
+
 //========================================================
 //Async and await and generator functions
 
