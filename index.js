@@ -17,7 +17,7 @@ let i = {};
 // console.log(typeof e);
 // console.log(typeof f);
 // console.log(typeof g);
-// console.log(typeof h);
+console.log(typeof h);
 // console.log(typeof i);
 
 //=======================================================
