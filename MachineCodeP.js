@@ -107,6 +107,8 @@ function* returnMultipleValues() {
 // const gen = returnMultipleValues();
 // console.log(gen.next());
 // console.log(gen.next());
+// console.log(gen.next());
+// console.log(gen.next());
 
 //=======================================================================
 // Write a function which can set default values to the parameters of function when an argument is not passed. Also show how to use exisiting parameters to set the value of another parameter
@@ -212,4 +214,58 @@ const objEntries = Object.fromEntries(entries);
 // console.log(objEntries);
 
 //============================================================================
-//
+//Create an object with getter and setter for property
+
+//=========================================================================
+//Modify the given object so that it can be used inside a for...of loop
+const obj = {
+  name: "Suravi",
+  designation: "Software developer",
+  salary: "1 crore",
+  address: "Kolkata",
+  gender: "Female",
+  [Symbol.iterator]() {
+    let keys = Object.keys(this);
+
+    let index = 0;
+
+    return {
+      next: () => {
+        return index > keys.length
+          ? {
+              value: undefined,
+              done: true,
+            }
+          : {
+              value: this[keys[index++]],
+              done: false,
+            };
+      },
+    };
+  },
+};
+
+// const iterator = obj[Symbol.iterator]();
+// console.log(iterator.next())
+// console.log(iterator.next())
+// console.log(iterator.next())
+
+//===========================================================
+//Write a polyfill for Object.create
+const obj12 = {};
+
+Object.prototype.myCreate = function (params) {
+  let obj = {};
+  if (params === null) {
+    obj.__proto__ = null;
+  } else {
+    for (let key in params) {
+      obj.__proto__[key] = params[key];
+    }
+  }
+  return obj;
+};
+const obj15 = Object.myCreate(null);
+const obj16 = Object.myCreate({ name: "Saurabh" });
+console.log(obj15);
+console.log(obj16);
