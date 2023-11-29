@@ -265,7 +265,145 @@ Object.prototype.myCreate = function (params) {
   }
   return obj;
 };
-const obj15 = Object.myCreate(null);
-const obj16 = Object.myCreate({ name: "Saurabh" });
-console.log(obj15);
-console.log(obj16);
+// const obj15 = Object.myCreate(null);
+// const obj16 = Object.myCreate({ name: "Saurabh" });
+// console.log(obj15);
+// console.log(obj16);
+
+//===================================================================
+//Write a code show Optional chaining for objects and functions
+
+const obj14 = {
+  name: "Saurabh",
+  address: {
+    city: "Ara",
+    pincode: 802301,
+  },
+  printDetails(arg) {
+    console.log(
+      "Name : ",
+      this.name,
+      "Address :",
+      this.address.city,
+      this.address.pincode,
+      arg
+    );
+  },
+};
+
+// console.log(obj14?.trial?.());
+// console.log(obj14?.printDetails?.("Bhojpur"));
+
+//Show the usage of static variable & function in a class and accessing it from the code
+
+class Details {
+  constructor() {}
+  static print() {
+    console.log("Printing name");
+  }
+}
+// Details.print();
+
+//Write a class which uses private variable and function
+
+class PrivateProp {
+  #name = "";
+  constructor(name, salary) {
+    this.#name = name;
+    this.salary = salary;
+    // this.#print();
+  }
+
+  #print() {
+    console.log("Detail share nahi karna hai");
+  }
+}
+// const ih = new PrivateProp("Saurabh", "000");
+// console.log(ih.name);
+// console.log(ih.salary);
+
+//====================================================================
+//Show how inheritance works in Class and the use of super keyword with working example
+
+class Inheritance {
+  constructor(name) {
+    this.name = name;
+  }
+  printParent() {
+    console.log("Printing Parents class method");
+  }
+}
+
+class ChildClass extends Inheritance {
+  constructor(salary, name) {
+    super(name);
+    this.Salary = salary;
+  }
+  print() {
+    console.log(this.name);
+  }
+}
+
+// const child = new ChildClass("10 lac", "Saurabh");
+// child.print();
+// child.printParent();
+//=================================================================
+//
+// console.log(Array.isArray([]));
+// console.log(typeof []);
+// console.log(typeof {});
+
+//==================================================================
+//Array
+//Write a program to append and prepend, single or multiple values in to an array
+let arrMeth = [2, 3];
+
+arrMeth.push(4, 5);
+arrMeth.unshift(0, 1);
+// console.log(arrMeth);
+
+//====================================================================
+//Show insertion and removal of elements can happen in the array for given index
+
+// arrMeth.splice(2, 1, 8, 9);
+// console.log(arrMeth);
+
+//Show how an array in JavaScript can act like a stack and queue
+
+//==========================================================================
+//Promises
+
+function promise1() {
+  return new Promise((resolve, reject) => {
+    resolve(15);
+  });
+}
+
+function promise2() {
+  return new Promise((resolve, reject) => {
+    resolve(12);
+  });
+}
+
+function promise3() {
+  return new Promise((resolve, reject) => {
+    resolve(8);
+    // reject(5);
+  });
+}
+
+function resolveAll() {
+  const p1 = promise1();
+  const p2 = promise2();
+  const p3 = promise3();
+  try {
+    // const result = await Promise.allSettled([p1, p2, p3]);
+    const result = Promise.all([p1, p2, p3]).then((data) => {
+      console.log(data);
+    });
+    console.log(result);
+  } catch (error) {
+    console.log("Error", error);
+  }
+}
+// resolveAll();
